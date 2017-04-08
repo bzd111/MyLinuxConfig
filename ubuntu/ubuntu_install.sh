@@ -49,6 +49,7 @@ pip install ipython -q
 curl -sSL https://get.daocloud.io/docker | sh
 curl -L https://get.daocloud.io/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+systemctl enable docker
 
 # for vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
