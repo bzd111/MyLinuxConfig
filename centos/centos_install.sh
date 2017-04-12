@@ -18,7 +18,7 @@ systemctl enable docker
 # now start install
 yum install -y update
 yum install -y python-devel
-yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz ipython
+yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz ipython cmake
 
 easy_install pip
 mkdir /root/.pip
@@ -53,6 +53,10 @@ vim +PluginInstall +qall
 # config tmux
 cp $(pwd)/centos_tmux.conf ~/.tmux.conf
 tmux kill-server
+
+# install YouCompleteMe
+cd  ~/.vim/bundle/YouCompleteMe
+./install.py
 
 # restart
 reboot -h 0
