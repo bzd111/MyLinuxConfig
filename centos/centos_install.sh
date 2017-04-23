@@ -58,6 +58,13 @@ tmux kill-server
 cd  ~/.vim/bundle/YouCompleteMe
 ./install.py
 
+# config ipython
+ipython profile myconfig
+cd /root/.ipython/profile_myconfig
+mv ipython_config.py ipython_config.py1
+cp $(pwd)/ipython_config.py ipython_config.py
+
+
 # restart
 reboot -h 0
 

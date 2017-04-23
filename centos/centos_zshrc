@@ -58,6 +58,9 @@ autoload -U compinit && compinit -u
 
 source $ZSH/oh-my-zsh.sh
 
+#set my prompt 
+PROMPT="%{$fg_bold[green]%}%n%{$reset_color%}@%{$fg[cyan]%}%m %{$fg[magenta]%}%~ %{$reset_color%}%{$fg[red]%}%>>>> %{$reset_color%}"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -86,3 +89,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ipy="ipython --profile=myconfig"
+alias wget="/usr/bin/wget -T10 -t3 -w3 -c -q -P /tmp"
+alias curl="/usr/bin/curl -m 10 --connect-timeout 5 -4 -s"
+alias ping="ping -c 4"
