@@ -18,7 +18,7 @@ systemctl enable docker
 # now start install
 yum install -y update
 yum install -y python-devel
-yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz ipython cmake
+yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz gcc cmake
 
 easy_install pip
 mkdir /root/.pip
@@ -28,7 +28,7 @@ index-url = http://pypi.douban.com/simple
 trusted-host = pypi.douban.com
 EOF
 
-pip install ipython -q
+pip install ipython==5.0.0 -q
 
 
 # install zsh
@@ -59,9 +59,8 @@ cd  ~/.vim/bundle/YouCompleteMe
 ./install.py
 
 # config ipython
-ipython profile myconfig
-cd /root/.ipython/profile_myconfig
-mv ipython_config.py ipython_config.py1
+ipython profile create
+mv /root/.ipython/profile_default/ipython_config.py /root/.ipython/profile_default/ipython_config.py1
 cp $(pwd)/ipython_config.py ipython_config.py
 
 
