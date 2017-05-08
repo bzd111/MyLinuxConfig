@@ -57,6 +57,7 @@ tmux kill-server
 # install YouCompleteMe
 cd  ~/.vim/bundle/YouCompleteMe
 ./install.py
+cd -
 
 # config ipython
 ipython profile create
