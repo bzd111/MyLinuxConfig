@@ -62,7 +62,7 @@ cd -
 # config ipython
 ipython profile create
 mv /root/.ipython/profile_default/ipython_config.py /root/.ipython/profile_default/ipython_config.py1
-cp $(pwd)/ipython_config.py ipython_config.py
+cp $(pwd)/ipython_config.py /root/.ipython/profile_default/ipython_config.py
 
 
 # restart
