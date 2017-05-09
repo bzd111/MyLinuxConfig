@@ -17,7 +17,7 @@ systemctl enable docker
 
 # now start install
 yum install -y update
-yum install -y python-devel
+yum install -y python-devel mysql-devel
 yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz gcc cmake
 
 easy_install pip
