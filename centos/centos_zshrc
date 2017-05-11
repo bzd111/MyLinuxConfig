@@ -3,7 +3,7 @@
 
 # Path to your oh-my-zsh installation.
   export ZSH=/root/.oh-my-zsh
-
+  eval $(thefuck --alias)
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -93,3 +93,4 @@ alias ipy="ipython"
 alias wget="/usr/bin/wget -T10 -t3 -w3 -c -q -P /tmp"
 alias curl="/usr/bin/curl -m 10 --connect-timeout 5 -4 -s"
 alias ping="ping -c 4"
+alias tell="tldr"

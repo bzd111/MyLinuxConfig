@@ -19,6 +19,7 @@ systemctl enable docker
 yum install -y update
 yum install -y python-devel mysql-devel
 yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz gcc cmake
+yum install the_silver_searcher -y 
 
 easy_install pip
 mkdir /root/.pip
@@ -29,7 +30,8 @@ trusted-host = pypi.douban.com
 EOF
 
 pip install ipython==5.0.0 -q
-
+pip install thefuck
+pip install tldr
 
 # install zsh
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
