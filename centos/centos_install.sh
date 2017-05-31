@@ -66,6 +66,14 @@ ipython profile create
 mv /root/.ipython/profile_default/ipython_config.py /root/.ipython/profile_default/ipython_config.py1
 cp $(pwd)/ipython_config.py /root/.ipython/profile_default/ipython_config.py
 
+# install ag
+yum -y groupinstall "Development Tools"
+yum -y install pcre-devel xz-devel
+git clone https://github.com/ggreer/the_silver_searcher.git ag
+cd ag
+./build.sh
+sudo make install
+
 
 # restart
 reboot -h 0
