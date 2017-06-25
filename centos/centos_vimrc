@@ -7,6 +7,11 @@ set softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
 set shiftround    " round indent to multiple of 'shiftwidth'
 set autoindent    " align the new line indent with the previous line
 
+set encoding=utf-8
+set termencoding=utf-8
+set formatoptions+=mM
+set fencs=utf-8,gbk
+set ambiwidth=double
 set nocompatible              " required
 filetype off                  " required
 
@@ -34,6 +39,8 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Bundle 'jiangmiao/auto-pairs'
 Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-fugitive'
+Plugin 'ervandew/supertab'
 "
 " " Add all your plugins here (note older versions of Vundle used Bundle
 "
@@ -42,10 +49,12 @@ Plugin 'majutsushi/tagbar'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
-
+" for pymode
 autocmd CompleteDone * pclose
+let g:pymode = 1
+let g:pymode_warnings = 1
+let g:pymode_options_max_line_length = 79
+
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 1    " conflict with jedi
 let g:pymode_rope_autoimport = 1
@@ -55,22 +64,52 @@ let g:pymode_rope_goto_definition_bind = '<C-]>'
 let g:pymode_rope_goto_definition_cmd = 'vnew'
 let g:pymode_rope_lookup_project = 0
 
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_print_as_function = 1
+let g:pymode_syntax_highlight_async_await = g:pymode_syntax_all
+let g:pymode_syntax_highlight_self = g:pymode_syntax_all
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+
+let g:pymode_trim_whitespaces = 1
+let g:pymode_quickfix_maxheight = 2
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # BREAKPOINT TODO REMOVE; from nose.tools import set_trace; set_trace()'
+let g:pymode_breakpoint_bind = "<C-k>"
+
+let g:pymode_run = 1
+let g:pymode_run_bind = "<C-j>"
+
 let g:pymode_lint = 1
-let g:pymode_lint_on_write = 0
+let g:pymode_lint_on_write = 1 
 let g:pymode_lint_on_fly = 0
 let g:pymode_lint_message = 1
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint']
-let g:syntastic_python_checkers = ['pep8']
+let g:syntastic_python_checkers = ['pep8', 'pyflakes']
 let g:pymode_lint_cwindow = 0    " open quickfix window
 let g:pymode_lint_ignore = "C0111, W0105, C0325"
 let g:pymode_lint_signs = 1
+" let g:pymode_lint_todo_symbol = 'T'
+" let g:pymode_lint_error_symbol = 'E'
+" let g:pymode_lint_comment_symbol = 'C'
+
+let g:pymode_lint_todo_symbol = 'WW'
+let g:pymode_lint_comment_symbol = 'CC'
+let g:pymode_lint_visual_symbol = 'RR'
+let g:pymode_lint_error_symbol = 'EE'
+let g:pymode_lint_info_symbol = 'II'
+let g:pymode_lint_pyflakes_symbol = 'FF'
+
+
 " 修改默认的max-line红线为浅色，solorized黑色主题
 hi Search cterm=NONE ctermfg=black ctermbg=blue
 highlight ColorColumn ctermbg=black
 let g:pymode_options_max_line_length = 80
 let g:pymode_options_colorcolumn = 1
-"
-"
+
+
 " " For emmemt only avilable for html,css,sass
 let g:user_emmet_install_global = 0
 autocmd FileType html,mako,css,sass,scss EmmetInstal
@@ -90,7 +129,7 @@ nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 let g:airline#extensions#tabline#enabled = 1
 
-"forirline#extensions#tabline#enabled = 1
+"for Arirline#extensions#tabline#enabled = 1
 function! ArilineInit()
     let g:airline_theme = 'wombat'
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
@@ -102,8 +141,36 @@ function! ArilineInit()
 endfunction
 autocmd VimEnter * call ArilineInit()
 
+"for syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 3
+
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
 
 
+" let g:syntastic_error_symbol = ':x:'
+" let g:syntastic_style_error_symbol =  ""
+" let g:syntastic_warning_symbol = 
+" let g:syntastic_style_warning_symbol =
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
+
+let g:indentLine_enabled = 1
+let g:indentLine_color_term = 239
+
+
+" for NERDTree
 " autocmd vimenter * NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$', '__pycache__'] "ignore files in NERDTree
 nnoremap <F10> :exe 'NERDTreeToggle' <CR>
@@ -111,13 +178,15 @@ let NERDTreeWinPos='left'
 let NERDTreeWinSize=30
 
 
+" for ctrlp
 " ctrlp, 在~/.agignore添加一行node_modules
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:ultisnips_python_style = 'google'
+let python_highlight_all = 1
 
-imap jj <esc>
 
 function HeaderPython()
     call setline(1, "#!/usr/bin python")
@@ -137,7 +206,7 @@ function HeaderSh()
     normal o
 endf
 autocmd bufnewfile *.sh call HeaderSh()
-
+autocmd QuickFixCmdPost *grep* cwindow
 
 inoremap <c-l> <c-o>:w<cr>
 nnoremap <c-l> :w<cr>
@@ -146,6 +215,8 @@ nnoremap <c-l> :w<cr>
 " let g:tagbar_ctags_bin='ctags'
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> [n :bnext<CR>
+
+imap jj <esc>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
