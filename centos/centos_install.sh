@@ -18,20 +18,20 @@ systemctl enable docker
 # now start install
 yum install -y update
 yum install -y python-devel mysql-devel
-yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz gcc cmake
-yum install the_silver_searcher -y 
+yum install  -y  ctags vim curl tmux  zsh git ssh make lrzsz gcc cmake
+yum install the_silver_searcher -y
 
 easy_install pip
 mkdir /root/.pip
 cat <<EOF >~/.pip/pip.conf
 [global]
-index-url = http://pypi.douban.com/simple
-trusted-host = pypi.douban.com
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 EOF
 
 pip install ipython==5.0.0 -q
 pip install thefuck
 pip install tldr
+pip install httpie
 
 # install zsh
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -74,9 +74,5 @@ cd ag
 ./build.sh
 sudo make install
 
-
 # restart
 reboot -h 0
-
-
-
