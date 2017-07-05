@@ -11,5 +11,7 @@ echo Starting Õ¯“◊‘∆“Ù¿÷
 start  "" "D:\program files (x86)\CloudMusic\cloudmusic.exe"
 echo Starting Google
 start  "" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+echo Starting Jupyter
+start jupyter notebook
 REM start /wait "" "path"
 exit
