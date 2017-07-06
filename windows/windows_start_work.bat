@@ -11,5 +11,9 @@ echo Starting Õ¯“◊‘∆“Ù¿÷
 start  "" "D:\Netease\CloudMusic\cloudmusic.exe"
 echo Starting Google
 start  "" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+echo Starting DingTalk
+start "" "D:\DingDing\main\current\DingTalk.exe"
+echo Starting VirtualBox
+start "" "D:\VirtualBox\VirtualBox.exe"
 REM start /wait "" "path"
 exit
