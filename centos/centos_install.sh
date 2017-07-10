@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
 # yum switch aliyun
-yum install wget -y
-mv /etc/yum.repos.d /etc/yum.repos.d.backup4comex
-mkdir /etc/yum.repos.d
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-yum clean all
 yum makecache
 
 # https://get.daocloud.io
@@ -16,25 +13,24 @@ chmod +x /usr/local/bin/docker-compose
 systemctl enable docker
 
 # now start install
-yum install -y update
 yum install -y python-devel mysql-devel
-yum install  -y  ctags vim curl tmux  zsh git httpie ssh make lrzsz gcc cmake
-yum install the_silver_searcher -y 
+yum install  -y  ctags vim curl tmux  zsh git ssh make lrzsz gcc cmake
+yum install the_silver_searcher -y
 
 easy_install pip
 mkdir /root/.pip
 cat <<EOF >~/.pip/pip.conf
 [global]
-index-url = http://pypi.douban.com/simple
-trusted-host = pypi.douban.com
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 EOF
 
 pip install ipython==5.0.0 -q
 pip install thefuck
 pip install tldr
+pip install httpie
 
 # install zsh
-wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+sudo yum update && sudo yum -y install zsh
 chsh -s /bin/zsh
 cp $(pwd)/centos_zshrc  ~/.zshrc
 
@@ -74,9 +70,5 @@ cd ag
 ./build.sh
 sudo make install
 
-
 # restart
 reboot -h 0
-
-
-
