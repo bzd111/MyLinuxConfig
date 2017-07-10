@@ -15,5 +15,11 @@ echo Starting DingTalk
 start "" "D:\DingDing\main\current\DingTalk.exe"
 echo Starting VirtualBox
 start "" "D:\VirtualBox\VirtualBox.exe"
+echo Starting VM auto_centons
+cd /d E:\vagrant\vagrant auto centos
+start vagrant up
+echo Starting VM test_all
+cd /d E:\vagrant\vagrant test_all
+start vagrant up
 REM start /wait "" "path"
 exit
