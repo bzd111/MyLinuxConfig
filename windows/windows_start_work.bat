@@ -1,8 +1,12 @@
 @echo off
 echo Starting 桌面整理
 start  "" "D:\program files (x86)\cmcm\kdesk\kdesk64.exe" 
-echo Starting Launch
-start  "" "D:\Launchy\Launchy.exe"
+REM echo Starting Launch
+REM start  "" "D:\Launchy\Launchy.exe"
+echo Starting Everything
+start "" "D:\Program Files\Everything\Everything.exe"
+echo Starting Wox
+start "" "C:\Users\\Administrator\AppData\Local\Wox\Wox.exe"
 echo Starting Evernote
 start  "" "D:\Evernote\Evernote.exe"
 echo Starting 有道词典
