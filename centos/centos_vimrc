@@ -1,3 +1,6 @@
+let $vimhome=fnamemodify(resolve(expand("~/.vimrc")), ':p:h')
+let $vundle=$vimhome."/bundle/Vundle.vim"
+
 set ts=4
 set textwidth=79  " lines longer than 79 columns will be broken
 set shiftwidth=4  " operation >> indents 4 columns; << unindents 4 columns
@@ -6,48 +9,92 @@ set expandtab     " insert spaces when hitting TABs
 set softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
 set shiftround    " round indent to multiple of 'shiftwidth'
 set autoindent    " align the new line indent with the previous line
-
 set encoding=utf-8
 set termencoding=utf-8
 set formatoptions+=mM
 set fencs=utf-8,gbk
 set ambiwidth=double
-set nocompatible              " required
-filetype off                  " required
+set nocompatible              
+syntax enable                               " syntax highlight
+set t_Co=256                                " set 256 colors
+colorscheme wombat256mod                    " set color scheme
+set number                                  " show line numbers
+set ruler
+set ttyfast                                 " terminal acceleration
+set shiftwidth=4                            " shift lines by 4 spaces
+set smarttab                                " set tabs for a shifttabs logic
+set cursorline                              " shows line under the cursor's line
+set showmatch                               " shows matching part of bracket pairs (), [], {}
+set enc=utf-8                                " utf-8 by default
+set nobackup                                 " no backup files
+set nowritebackup                           " only in case you don't want a backup file while editing
+set noswapfile                                 " no swap files
+set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
+set scrolloff=10                            " let 10 lines before/after cursor during scroll
+set clipboard=unnamed                       " use system clipboard
+set exrc                                    " enable usage of additional .vimrc files from working directory
+set secure                                  " prohibit 
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+
+filetype off
+
+" set rtp+=$vundle
+set rtp+=/root/.vim/bundle/Vundle.vim
 call vundle#begin()
-"
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
-"
-" " let Vundle manage Vundle, required, 如果有新的插件，直接把名称放到这里
-Plugin 'gmarik/Vundle.vim'
-Bundle 'klen/python-mode'
-Plugin 'jmcantrell/vim-virtualenv'
-Bundle 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Bundle 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Plugin 'yggdroot/indentline'
-Plugin 'mhinz/vim-startify'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Bundle 'jiangmiao/auto-pairs'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ervandew/supertab'
-"
-" " Add all your plugins here (note older versions of Vundle used Bundle
-"
-"
-" " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+
+
+    Plugin 'VundleVim/Vundle.vim'               " let Vundle manage Vundle, required
+
+    "-------------------=== Code/Project navigation ===-------------
+    Plugin 'scrooloose/nerdtree'                " Project and file navigation
+    Plugin 'majutsushi/tagbar'                  " Class/module browser
+    Plugin 'kien/ctrlp.vim'                     " Fast transitions on project files
+
+    "-------------------=== Other ===-------------------------------
+    Plugin 'bling/vim-airline'                  " Lean & mean status/tabline for vim
+    Plugin 'vim-airline/vim-airline-themes'     " Themes for airline
+    Plugin 'Lokaltog/powerline'                 " Powerline fonts plugin
+    Plugin 'fisadev/FixedTaskList.vim'          " Pending tasks list
+    Plugin 'rosenfeld/conque-term'              " Consoles as buffers
+    Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
+    Plugin 'flazz/vim-colorschemes'             " Colorschemes
+
+    "-------------------=== Snippets support ===--------------------
+    Plugin 'garbas/vim-snipmate'                " Snippets manager
+    Plugin 'MarcWeber/vim-addon-mw-utils'       " dependencies #1
+    Plugin 'tomtom/tlib_vim'                    " dependencies #2
+    Plugin 'honza/vim-snippets'                 " snippets repo
+
+    "-------------------=== Languages support ===-------------------
+    Plugin 'tpope/vim-commentary'               " Comment stuff out
+    Plugin 'mitsuhiko/vim-sparkup'              " Sparkup(XML/jinja/htlm-django/etc.) support
+    Plugin 'Rykka/riv.vim'                      " ReStructuredText plugin
+    Plugin 'Valloric/YouCompleteMe'             " Autocomplete plugin
+
+    "-------------------=== Python  ===-----------------------------
+    Plugin 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
+    Plugin 'scrooloose/syntastic'               " Syntax checking plugin for Vim
+    
+    "--------------------=== Other ===------------------------------
+    Plugin 'jmcantrell/vim-virtualenv'
+    Bundle 'SirVer/ultisnips'
+    Bundle 'scrooloose/nerdcommenter'
+    Plugin 'yggdroot/indentline'
+    Plugin 'mhinz/vim-startify'
+    Bundle 'jiangmiao/auto-pairs'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'ervandew/supertab'
+    
+call vundle#end()                           " required
+filetype on
+filetype plugin indent on
+
+
+"" Search settings
+"=====================================================
+set incsearch                                " incremental search
+set hlsearch    
+
 
 " for pymode
 autocmd CompleteDone * pclose
@@ -104,32 +151,34 @@ let g:pymode_lint_pyflakes_symbol = 'FF'
 
 
 " 修改默认的max-line红线为浅色，solorized黑色主题
-hi Search cterm=NONE ctermfg=black ctermbg=blue
-highlight ColorColumn ctermbg=black
-let g:pymode_options_max_line_length = 80
-let g:pymode_options_colorcolumn = 1
+" hi Search cterm=NONE ctermfg=black ctermbg=blue
+" highlight ColorColumn ctermbg=black
+" let g:pymode_options_max_line_length = 80
+" let g:pymode_options_colorcolumn = 1
 
 
 " " For emmemt only avilable for html,css,sass
 let g:user_emmet_install_global = 0
 autocmd FileType html,mako,css,sass,scss EmmetInstal
 
+" for tagbar
 nnoremap <silent> <F12> :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
-let g:tagbar_autofocus = 1
 let g:tagbar_sort = 1
 let g:tagbar_autopreview = 0
+let g:tagbar_autofocus=1
+let g:tagbar_width=42
+" autocmd BufEnter *.py :call tagbar#autoopen(0)
+" autocmd BufWinLeave *.py :TagbarClose
+
 
 " for airline, http://vimawesome.com/plugin/vim-airline
-set laststatus=2
-set encoding=utf-8
-set noshowmode
-set term=xterm-256color
-nnoremap <C-N> :bn<CR>
-nnoremap <C-P> :bp<CR>
-let g:airline#extensions#tabline#enabled = 1
 
-"for Arirline#extensions#tabline#enabled = 1
+let g:airline_theme='badwolf'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline_powerline_fonts=1
+
 function! ArilineInit()
     let g:airline_theme = 'wombat'
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
@@ -152,14 +201,16 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 3
 
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_enable_signs=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_aggregate_errors=1
 let g:syntastic_error_symbol='>>'
+let g:syntastic_style_error_symbol='X'
 let g:syntastic_warning_symbol='>'
-
-
-" let g:syntastic_error_symbol = ':x:'
-" let g:syntastic_style_error_symbol =  ""
-" let g:syntastic_warning_symbol = 
-" let g:syntastic_style_warning_symbol =
+let g:syntastic_style_warning_symbol='x'
+let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
 
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
@@ -176,16 +227,26 @@ let NERDTreeIgnore=['\.pyc$', '\~$', '__pycache__'] "ignore files in NERDTree
 nnoremap <F10> :exe 'NERDTreeToggle' <CR>
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=30
+autocmd StdinReadPre * let s:std_in=1autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nmap " :NERDTreeToggle<CR>
 
 
 " for ctrlp
 " ctrlp, 在~/.agignore添加一行node_modules
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 let g:ultisnips_python_style = 'google'
 let python_highlight_all = 1
+
+
+" YouCompleteMe
+set completeopt-=preview
+let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+nmap <leader>g :YcmCompleter GoTo<CR>
+nmap <leader>d :YcmCompleter GoToDefinition<CR>
 
 
 function HeaderPython()
@@ -199,6 +260,7 @@ function HeaderPython()
 endf
 autocmd bufnewfile *.py call HeaderPython()
 
+
 function HeaderSh()
     call setline(1, "#!/usr/bin bash")
     normal G
@@ -208,13 +270,13 @@ endf
 autocmd bufnewfile *.sh call HeaderSh()
 autocmd QuickFixCmdPost *grep* cwindow
 
+
 inoremap <c-l> <c-o>:w<cr>
 nnoremap <c-l> :w<cr>
-"nnoremap <silent> <c-i>  :bprevious<cr>
-"nnoremap <silent> <c-o>  :bnext<cr>
-" let g:tagbar_ctags_bin='ctags'
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> [n :bnext<CR>
+nnoremap <C-N> :bn<CR>
+nnoremap <C-P> :bp<CR>
 
 imap jj <esc>
 
@@ -222,6 +284,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <C-q> <C-w>q
 "nnoremap <C-w> <C-w>w
 nmap    w=  :resize +3<CR>
 nmap    w-  :resize -3<CR>
