@@ -14,7 +14,7 @@ set termencoding=utf-8
 set formatoptions+=mM
 set fencs=utf-8,gbk
 set ambiwidth=double
-set nocompatible              
+set nocompatible
 syntax enable                               " syntax highlight
 set t_Co=256                                " set 256 colors
 colorscheme wombat256mod                    " set color scheme
@@ -33,7 +33,9 @@ set backspace=indent,eol,start              " backspace removes all (indents, EO
 set scrolloff=10                            " let 10 lines before/after cursor during scroll
 set clipboard=unnamed                       " use system clipboard
 set exrc                                    " enable usage of additional .vimrc files from working directory
-set secure                                  " prohibit 
+set secure                                  " prohibit
+let mapleader = ','
+let g:mapleader = ','
 
 
 filetype off
@@ -74,7 +76,7 @@ call vundle#begin()
     "-------------------=== Python  ===-----------------------------
     Plugin 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
     Plugin 'scrooloose/syntastic'               " Syntax checking plugin for Vim
-    
+
     "--------------------=== Other ===------------------------------
     Plugin 'jmcantrell/vim-virtualenv'
     Bundle 'SirVer/ultisnips'
@@ -84,7 +86,7 @@ call vundle#begin()
     Bundle 'jiangmiao/auto-pairs'
     Plugin 'tpope/vim-fugitive'
     Plugin 'ervandew/supertab'
-    
+
 call vundle#end()                           " required
 filetype on
 filetype plugin indent on
@@ -93,7 +95,7 @@ filetype plugin indent on
 "" Search settings
 "=====================================================
 set incsearch                                " incremental search
-set hlsearch    
+set hlsearch
 
 
 " for pymode
@@ -130,7 +132,7 @@ let g:pymode_run = 1
 let g:pymode_run_bind = "<C-j>"
 
 let g:pymode_lint = 1
-let g:pymode_lint_on_write = 1 
+let g:pymode_lint_on_write = 1
 let g:pymode_lint_on_fly = 0
 let g:pymode_lint_message = 1
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint']
@@ -247,6 +249,12 @@ let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>d :YcmCompleter GoToDefinition<CR>
+
+
+" ultisnips
+let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 
 function HeaderPython()
