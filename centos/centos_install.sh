@@ -16,7 +16,7 @@ systemctl restart docker
 
 # now start install
 yum install -y python-devel mysql-devel
-yum install  -y  ctags vim curl tmux  zsh git ssh make lrzsz gcc cmake
+yum install  -y  ctags vim curl tmux git ssh make lrzsz gcc cmake
 yum install the_silver_searcher -y
 
 easy_install pip
@@ -33,7 +33,9 @@ pip install httpie
 
 # install zsh
 sudo yum update && sudo yum -y install zsh
+rm -rf /root/.oh-my-zsh
 chsh -s /bin/zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 cp $(pwd)/centos_zshrc  ~/.zshrc
 
 # install autojump
@@ -44,6 +46,9 @@ git clone git://github.com/joelthelion/autojump.git /root/autojump
 cd /root/autojump
 ./install.py
 
+# update vim for YouCompleteMe
+sh -c ../software/vim_update_8.0.sh
+
 cd -
 # install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -53,6 +58,7 @@ vim +PluginInstall +qall
 # config tmux
 cp $(pwd)/centos_tmux.conf ~/.tmux.conf
 tmux kill-server
+
 
 # install YouCompleteMe
 cd  ~/.vim/bundle/YouCompleteMe
@@ -71,6 +77,15 @@ git clone https://github.com/ggreer/the_silver_searcher.git ag
 cd ag
 ./build.sh
 sudo make install
+cd -
+
+# copy color theme
+mkdir /root/.vim/colors
+cp /root/.vim/bundle/vim-colorschemes/colors/wombat256mod.vim  /root/.vim/colors/
+
+# copy UltiSnips snippets
+mkdir /root/.vim/UltiSnips
+cp $(pwd)/python.snippets  /root/.vim/UltiSnips
 
 # restart
 reboot -h 0
