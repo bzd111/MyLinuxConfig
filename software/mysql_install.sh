@@ -4,5 +4,6 @@
 yum install mariadb-server -y
 systemctl start mariadb
 systemctl enable mariadb
-mysqladmin -u root -password xxxx
 systemctl restart mariadb
+pip install -q mycli
+mysqladmin -u root -p password xxxx
