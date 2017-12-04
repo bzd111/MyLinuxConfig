@@ -7,7 +7,5 @@
 °²×°ÃüÁî
 
 ```
-git clone https://github.com/bzd111/MyLinuxConfig.git myconfig
-cd myconfig 
-sh install.sh
+git clone https://github.com/bzd111/MyLinuxConfig.git myconfig && sh ./myconfig/install.sh
 ```
