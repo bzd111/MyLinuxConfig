@@ -1,18 +1,9 @@
 #!/usr/bin/env bash
-
+INSTALL_PATH=$(cd `dirname $0`;pwd)
 # yum switch aliyun
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 yum makecache
-
-# https://get.daocloud.io
-# now install docker
-curl -sSL https://get.daocloud.io/docker | sh
-curl -L https://get.daocloud.io/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://a7dbd8ae.m.daocloud.io
-chmod +x /usr/local/bin/docker-compose
-systemctl enable docker
-systemctl restart docker
 
 # now start install
 yum install -y python-devel mysql-devel
@@ -36,7 +27,7 @@ sudo yum update && sudo yum -y install zsh
 rm -rf /root/.oh-my-zsh
 chsh -s /bin/zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-cp $(pwd)/centos_zshrc  ~/.zshrc
+cp $INSTALL_PATH/centos_zshrc  ~/.zshrc
 
 # install autojump
 #yum  install -y autojump
@@ -52,11 +43,11 @@ sh -c ../software/vim_update_8.0.sh
 cd -
 # install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cp $(pwd)/centos_vimrc ~/.vimrc
+cp $INSTALL_PATH/centos_vimrc ~/.vimrc
 vim +PluginInstall +qall
 
 # config tmux
-cp $(pwd)/centos_tmux.conf ~/.tmux.conf
+cp $INSTALL_PATH/centos_tmux.conf ~/.tmux.conf
 tmux kill-server
 
 
