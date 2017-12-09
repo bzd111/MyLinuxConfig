@@ -22,13 +22,6 @@ pip install thefuck
 pip install tldr
 pip install httpie
 
-# install zsh
-sudo yum update && sudo yum -y install zsh
-rm -rf /root/.oh-my-zsh
-chsh -s /bin/zsh
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-cp $INSTALL_PATH/centos_zshrc  ~/.zshrc
-
 # install autojump
 #yum  install -y autojump
 #cd ~
@@ -59,7 +52,7 @@ cd -
 # config ipython
 ipython profile create
 mv /root/.ipython/profile_default/ipython_config.py /root/.ipython/profile_default/ipython_config.py1
-cp $(pwd)/ipython_config.py /root/.ipython/profile_default/ipython_config.py
+cp $INSTALL_PATH/ipython_config.py /root/.ipython/profile_default/ipython_config.py
 
 # install ag
 yum -y groupinstall "Development Tools"
@@ -76,7 +69,14 @@ cp /root/.vim/bundle/vim-colorschemes/colors/wombat256mod.vim  /root/.vim/colors
 
 # copy UltiSnips snippets
 mkdir /root/.vim/UltiSnips
-cp $(pwd)/python.snippets  /root/.vim/UltiSnips
+cp $INSTALL_PATH/python.snippets  /root/.vim/UltiSnips
+
+# install zsh
+sudo yum update && sudo yum -y install zsh
+rm -rf /root/.oh-my-zsh
+chsh -s /bin/zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+cp $INSTALL_PATH/centos_zshrc  ~/.zshrc
 
 # restart
 reboot -h 0
