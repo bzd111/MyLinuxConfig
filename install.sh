@@ -1,6 +1,8 @@
 export LANG=zh_CN.UTF-8
 #!/bin/bash
-
+ROOT_PATH=$(cd "$(dirname "$0")"; pwd)
+CENTOS_PATH=$ROOT_PATH/centos
+UBUNTU_PATH=$ROOT_PATH/ubuntu
 KNOWN_DISTRIBUTION="(Ubuntu|RedHat|CentOS|)"
 DISTRIBUTION=$(lsb_release -d 2>/dev/null | grep -Eo $KNOWN_DISTRIBUTION  ||
     grep -Eo $KNOWN_DISTRIBUTION /etc/issue 2>/dev/null || grep -Eo
@@ -27,10 +29,10 @@ fi
 
 # start install
 if [ $OS = "CentOS" ]; then
-    cd centos
+    cd $CENTOS_PATH
     $sudo_cmd sh centos_install.sh
 elif [ $OS = "Ubuntu" ]; then
-    cd ubuntu
+    cd $UBUNTU_PATH
     $sudo_cmd sh ubuntu_install.sh
 else
     printf "\033[31mYour OS are not supported by this install script.\033[0m\n"
