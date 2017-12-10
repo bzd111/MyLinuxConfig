@@ -31,7 +31,7 @@ cd /root/autojump
 ./install.py
 
 # update vim for YouCompleteMe
-sh -c ../software/vim_update_8.0.sh
+sh -c $INSTALL_PATH/../software/vim_update_8.0.sh
 
 cd -
 # install Vundle
