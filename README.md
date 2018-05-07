@@ -9,3 +9,9 @@
 ```
 git clone https://github.com/bzd111/MyLinuxConfig.git myconfig && sh ./myconfig/install.sh
 ```
+
+使用单个脚本,以mysql为例
+
+```
+bash -c "$(curl -L -k https://raw.githubusercontent.com/bzd111/MyLinuxConfig/master/software/mysql_install.sh)"
+```
