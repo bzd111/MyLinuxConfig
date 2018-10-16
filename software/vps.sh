@@ -15,5 +15,5 @@ systemctl restart firewalld
 echo "ssserver -p 8388 -k fangqiang -m rc4-md5 -d start" >> /etc/rc.local
 # bbr加速
 wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
-chomd +x bbr.sh
+chmod +x bbr.sh
 ./bbr.sh

@@ -18,6 +18,7 @@ git clone https://github.com/vim/vim.git --depth=1 && cd vim/
     --enable-multibyte  \
     --with-tlib=tinfo  \
     --enable-pythoninterp \
+    --enable-python3interp \
     --enable-rubyinterp \
     --with-ruby-command=/usr/bin/ruby \
     --with-features=huge \
