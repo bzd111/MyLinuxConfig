@@ -113,6 +113,16 @@ def ${1:fname}(self, ${2:**kwargs}):
     ${3:pass}
 endsnippet
 
+snippet def "def"
+def ${1:fname}(${2:**kwargs}):
+    ${3:pass}
+endsnippet
+
+snippet adef "adef"
+async def ${1:fname}(${2:**kwargs}):
+    ${3:pass}
+endsnippet
+
 snippet pro "property"
 def ${1}():
     doc = "${2: The $1 property.}"
