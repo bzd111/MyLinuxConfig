@@ -8,19 +8,21 @@ yum -y install libffi-devel
 
 
 # Get Version
-version=$1
 if [ -z $version ]; 
-    then echo 'The lack of the version number.';
-         echo 'Use the default, 3.7.0 (y/n)'
-         read yes_or_no
-         if [ $yes_or_no == 'y' ]; then version='3.7.0'; else exit 1;fi 
+     then echo 'The lack of the version number.';
+     echo 'Use the default, 3.7.0 (y/n)'
+     read yes_or_no
+     if [ $yes_or_no == 'y' ]; 
+         then version='3.7.0'; 
+     else exit 1;
+     fi 
 fi
 
 
 # Install python3
 wget https://www.python.org/ftp/python/$version/Python-$version.tar.xz     
 mkdir /usr/local/python3 
-tar -zxvf Python-$version.tar.xz 
+tar -xvf Python-$version.tar.xz 
 cd Python-$version
 ./configure --enable-loadable-sqlite-extensions --prefix=/usr/local/python3 --enable-optimizations
 make && make install
