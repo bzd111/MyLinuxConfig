@@ -24,6 +24,7 @@ git clone https://github.com/vim/vim.git --depth=1 && cd vim/
     --with-features=huge \
     --with-luajit \
     --enable-luainterp=yes \
+    --enable-shared \
     --enable-fail-if-missing
 
 make
