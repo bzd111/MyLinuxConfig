@@ -13,7 +13,7 @@ c.TerminalInteractiveShell.term_title = True
 
 # Enable 'aimport foo' to turn on autoreloading of module 'foo'.
 c.TerminalIPythonApp.extensions = ['autoreload']
-c.InteractiveShellApp.exec_lines = ['autoreload 1']
+c.InteractiveShellApp.exec_lines = ['autoreload 2']
 
 # IPython's default readline config remaps the cursor keys to do history
 # searches, which is extremely annoying.  By setting this here, we prevent *all*
