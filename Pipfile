@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.douban.com/simple/"
+verify_ssl = true
+
+[dev-packages]
+isort = "*"
+mypy = "*"
+pytest = "*"
+flake8 = "*"
+pre-commit = "*"
+black = "*"
+
+[packages]
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+init = "pipenv install black flake8 isort mypy pytest --dev --pre"
