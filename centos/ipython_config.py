@@ -40,11 +40,10 @@ else:
             return [(Token.Prompt, '... ')]
 
         def out_prompt_tokens(self, cli=None):
-            # return []
-            return [(Token.Prompt, 'Out:')]
+            return [(Token.OutPrompt, 'Out:')]
 
     c.TerminalInteractiveShell.prompts_class = BasicPythonPrompt
 
 # Set up aliases for shell commands.
-c.AliasManager.user_aliases = [('git', 'git'), ]
+c.AliasManager.user_aliases = [('git', 'git')]
 c.StoreMagics.autorestore = True
