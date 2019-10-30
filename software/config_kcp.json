@@ -1,0 +1,119 @@
+{
+  "stats": {},
+  "api": {
+    "tag": "api",
+    "services": ["StatsService"]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    },
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true
+    }
+  },
+  "inbounds": [
+    {
+      "tag": "tcp",
+      "protocol": "vmess",
+      "port": 14619,
+      "settings": {
+        "clients": [
+          {
+            "email": "auser",
+            "id": "****************************",
+            "level": 0,
+            "alterId": 64,
+            "security": "auto"
+          },
+          {
+            "email": "buser",
+            "id": "****************************",
+            "alterId": 64,
+            "level": 0,
+            "security": "auto"
+          }
+        ],
+        "detour": {
+          // 绕行配置，即指示客户端使用 dynamicPort 的配置通信
+          "to": "dynamicPort"
+        }
+      },
+      "streamSettings": {
+        "network": "mkcp", //此处的 mkcp 也可写成 kcp，两种写法是起同样的效果
+        "kcpSettings": {
+          "uplinkCapacity": 5,
+          "downlinkCapacity": 100,
+          "congestion": true,
+          "header": {
+            "type": "none"
+          }
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10085,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
+      },
+      "tag": "api"
+    },
+    {
+      "protocol": "vmess",
+      "port": "10000-20000", // 端口范围
+      "tag": "dynamicPort", // 与上面的 detour to 相同
+      "settings": {
+        "default": {
+          "alterId": 64
+        }
+      },
+      "allocate": {
+        // 分配模式
+        "strategy": "random",
+        //随机开启
+        "concurrency": 2,
+        //同时开放两个端口,这个值最大不能超过端口范围的1/3
+        "refresh": 3
+        //每三分钟刷新一次
+      },
+      "streamSettings": {
+        "network": "mkcp", //此处的 mkcp 也可写成 kcp，两种写法是起同样的效果
+        "kcpSettings": {
+          "uplinkCapacity": 5,
+          "downlinkCapacity": 100,
+          "congestion": true,
+          "header": {
+            "type": "none"
+          }
+        }
+      }
+    }
+  ],
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  },
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "loglevel": "info",
+    "error": "/var/log/v2ray/error.log"
+  },
+  "routing": {
+    "settings": {
+      "rules": [
+        {
+          "inboundTag": ["api"],
+          "outboundTag": "api",
+          "type": "field"
+        }
+      ]
+    },
+    "strategy": "rules"
+  }
+}
