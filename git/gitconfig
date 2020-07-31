@@ -1,6 +1,6 @@
 [user]
     name = bzd111
-    email = zxc@gogogozxc.xyz
+    email = zxc@bzd111.me
 [core]
     editor = vim
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -31,3 +31,5 @@
     template = ~/.gitmessage
 [pager]
     branch = false
+[format]
+	pretty = format:%Cred%an - %ar%n %Cblue %h -%Cgreen %s %n
